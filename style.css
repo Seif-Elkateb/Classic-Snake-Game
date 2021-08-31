@@ -1,0 +1,21 @@
+*{
+  box-sizing: border-box;
+  margin:0;
+  padding: 0;
+}
+.box{
+  width:648px;
+  height:648px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border:24px solid rgba(54, 54, 97, 0.644);
+  border-radius: 24px;
+}
+.snake{
+  width:24px;
+  height:24px;
+  background-color: black;
+  position: absolute;
+}
