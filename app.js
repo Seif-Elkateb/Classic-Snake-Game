@@ -4,8 +4,9 @@ Start Global Variables
 const snake= document.querySelector('.snake');
 const box= document.querySelector('.box');
 const food =document.createElement('div');
-let positionLeft=0;
-let positionTop=0;
+const snakeBody=[snake];
+let positionLeft;
+let positionTop;
 let direction='right';
 let newDirection=[];
 /*
@@ -101,7 +102,6 @@ const setDirection=()=>{
     newDirection.shift();
   }
 }
-
 /*
 End Helper Function
 */
@@ -114,7 +114,16 @@ const createBlocks=()=>{
     block.classList.add('block');
     box.appendChild(block);
 
+
   }
+}
+const createFood=()=>{
+  food.classList.add('food');
+  positionLeft=Math.floor((Math.floor(Math.random()*600)+1)/30)*30;
+  positionTop=Math.floor((Math.floor(Math.random()*600)+1)/30)*30;
+  food.style.left=positionLeft.toString()+'px';
+  food.style.top=positionTop.toString()+'px';
+  box.appendChild(food);
 }
 
 /*
@@ -124,7 +133,9 @@ End Main functions
 /*
 Start Code Execution
 */
+
 createBlocks();
+createFood();
 document.body.addEventListener('keydown',(e)=>{
   if(e.key==='ArrowRight')
   {
@@ -143,46 +154,43 @@ document.body.addEventListener('keydown',(e)=>{
   {
     newDirection.push('down')
   }
-
 });
 
-setInterval(() => {
-  console.log(newDirection);
-  setDirection(direction,newDirection); 
+setInterval(()=>{
+  setDirection(direction,newDirection);
+  for (let snake of snakeBody){
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
-
   if(direction==='right')
   {
-  
      if(left>=600)
       snake.style.left='0px';
     
     else 
-      snake.style.left=(left+1).toString()+'px';
+      snake.style.left=(left+1.25).toString()+'px';
   }
   else if(direction==='left')
   {
     if(left<=0)
       snake.style.left='600px';
     else
-      snake.style.left=(left-1).toString()+'px';
+      snake.style.left=(left-1.25).toString()+'px';
   }
   else if(direction==='up')
   {
     if(top<=0)
       snake.style.top='600px';
     else 
-      snake.style.top=(top-1).toString()+'px';
+      snake.style.top=(top-1.25).toString()+'px';
   }
   else if(direction==='down')
   {
     if(top>=600)
       snake.style.top='0px';
     else
-      snake.style.top=(top+1).toString()+'px';
+      snake.style.top=(top+1.25).toString()+'px';
   }
-},1);
+}},1);
 /*
 End Code Execution
 */

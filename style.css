@@ -47,3 +47,11 @@ body{
 .block:nth-of-type(odd) {
   background-color: rgba(146, 214, 77, 0.719);
 }
+.food{
+  width:15px;
+  height:15px;
+  background-color: rgb(61, 18, 18);
+  border-radius: 50%;
+  position:absolute;
+
+}
