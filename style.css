@@ -1,6 +1,7 @@
 *{
   margin:0;
   padding: 0;
+  box-sizing: border-box;
 }
 body{
   background: url('images/snakegamebackground.jpg') no-repeat center center fixed;
@@ -8,20 +9,41 @@ body{
 }
 .box{
   background-color: rgb(54, 109, 54);
-  width:600px;
-  height:600px;
+  width:654px;
+  height:654px;
   position: absolute;
+  display: grid;
+  grid-template-columns: repeat(21,auto);
+  grid-template-rows: repeat(21,auto);
   top: 50%;
   left: 48%;
   transform: translate(-50%, -50%);
   border:12px solid rgb(16, 48, 8);
   border-radius: 12px;
-
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
 }
 .snake{
-  width:24px;
-  height:24px;
-  background-color: rgb(5, 26, 0);
+  width:30px;
+  height:30px;
+  background-color: rgb(40, 66, 25);
   position: absolute;
   z-index: 100;
+  border:3px solid rgba(21, 58, 37, 0.541);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+
+}
+
+
+.block:nth-of-type(even) {
+  background-color: rgba(114, 182, 47, 0.719);
+}
+.block:nth-of-type(odd) {
+  background-color: rgba(146, 214, 77, 0.719);
 }
