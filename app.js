@@ -15,7 +15,7 @@ End Global Variables
 /* 
 Start Helper Function
 */
-const setDirection=(direction,newDirection)=>{
+const setDirection=()=>{
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
   if(direction==='up'&&newDirection[0]=='left'&&left%30===0&&top%30===0)
@@ -100,8 +100,6 @@ const setDirection=(direction,newDirection)=>{
   {
     newDirection.shift();
   }
- 
-  return direction;
 }
 
 /*
@@ -110,8 +108,14 @@ End Helper Function
 /*
 Start Main Functions
 */
+const createBlocks=()=>{
+  for (let i=0;i<441;i++){
+    const block= document.createElement('div');
+    block.classList.add('block');
+    box.appendChild(block);
 
-
+  }
+}
 
 /*
 End Main functions
@@ -120,6 +124,7 @@ End Main functions
 /*
 Start Code Execution
 */
+createBlocks();
 document.body.addEventListener('keydown',(e)=>{
   if(e.key==='ArrowRight')
   {
@@ -143,7 +148,7 @@ document.body.addEventListener('keydown',(e)=>{
 
 setInterval(() => {
   console.log(newDirection);
-  direction=setDirection(direction,newDirection); 
+  setDirection(direction,newDirection); 
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
 
