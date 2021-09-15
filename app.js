@@ -214,6 +214,31 @@ const autoMove=(element,direction)=>{
         positionTailTop=tailTop
       }
   }
+  const checkConflict=()=>{
+    const left=Number((snake.style.left).slice(0,-2));
+    const top=Number((snake.style.top).slice(0,-2));
+    for (let block of snakeBody){
+      const leftBlock=Number((block.style.left).slice(0,-2));
+      const topBlock=Number((block.style.top).slice(0,-2));
+      if(left===leftBlock&&top===topBlock)
+      {
+        alert('game over');
+      }
+    }
+    for (block of snakeBody){
+      for (anotherBlock of snakeBody){
+      const leftBlock=Number((block.style.left).slice(0,-2));
+      const topBlock=Number((block.style.top).slice(0,-2));
+      const leftBlock2=Number((anotherBlock.style.left).slice(0,-2));
+      const topBlock2=Number((anotherBlock.style.top).slice(0,-2));
+      if(leftBlock===leftBlock2&&topBlock===topBlock2&&block!==anotherBlock)
+      {
+        alert('lozer');
+      }
+        
+      }
+    }
+  }
   
 
 
@@ -250,6 +275,7 @@ document.body.addEventListener('keydown',(e)=>{
 setInterval(()=>{
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
+  checkConflict();
   let tailLeft;
   let tailTop;
   if(snakeBody.length!==0)
