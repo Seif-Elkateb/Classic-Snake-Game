@@ -145,6 +145,7 @@ const createFood=()=>{
 const createBodyBlock=()=>{
   const block = document.createElement('div');
   block.classList.add('snake-body');
+  block.classList.add('transition');
   if(snakeBody.length===0){
   block.direction=direction;
   block.directions=[];
@@ -165,30 +166,52 @@ const autoMove=(element,direction)=>{
   const top=Number((element.style.top).slice(0,-2));
   if(direction==='right')
   {
-     if(left>=600)
+     if(left>=620){
+      element.classList.remove('transition');
       element.style.left='0px';
+      setTimeout(() => {
+        element.classList.add('transition')
+        
+      }, 60);     }
      
     else 
       element.style.left=(left+20).toString()+'px';
   }
   else if(direction==='left')
   {
-    if(left<=0)
+    if(left<=-20){
+      element.classList.remove('transition');
       element.style.left='600px';
+      setTimeout(() => {
+        element.classList.add('transition')
+        
+      }, 60);
+
+    }
     else
       element.style.left=(left-20).toString()+'px';
   }
   else if(direction==='up')
   {
-    if(top<=0)
+    if(top<=-20){
+      element.classList.remove('transition');
       element.style.top='600px';
+      setTimeout(() => {
+        element.classList.add('transition')
+        
+      }, 60);    }
     else 
       element.style.top=(top-20).toString()+'px';
   }
   else if(direction==='down')
   {
-    if(top>=600)
+    if(top>=620){
+      element.classList.remove('transition');
       element.style.top='0px';
+      setTimeout(() => {
+        element.classList.add('transition')
+        
+      }, 60);    }
     else
       element.style.top=(top+20).toString()+'px';
   }}
