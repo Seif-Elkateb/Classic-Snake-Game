@@ -35,14 +35,14 @@ const setDirection=()=>{
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
  
-  if(direction==='up'&&newDirection[0]=='left'&&left%30===0&&top%30===0)
+  if(direction==='up'&&newDirection[0]=='left'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
     addDirections(left,top);
     
   }
-  else if(direction==='up'&&newDirection[0]==='right'&&left%30===0&&top%30===0)
+  else if(direction==='up'&&newDirection[0]==='right'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
@@ -58,14 +58,14 @@ const setDirection=()=>{
     newDirection.shift();
   }
  
-  else if(direction==='down'&&newDirection[0]==='left'&&left%30===0&&top%30===0)
+  else if(direction==='down'&&newDirection[0]==='left'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
     addDirections(left,top);
 
   }
-  else if(direction==='down'&&newDirection[0]==='right'&&left%30===0&&top%30===0)
+  else if(direction==='down'&&newDirection[0]==='right'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
@@ -81,14 +81,14 @@ const setDirection=()=>{
     newDirection.shift();
   }
  
-  else if(direction==='left'&&newDirection[0]==='up'&&left%30===0&&top%30===0)
+  else if(direction==='left'&&newDirection[0]==='up'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
     addDirections(left,top);
 
   }
-  else if(direction==='left'&&newDirection[0]=='down'&&left%30===0&&top%30===0)
+  else if(direction==='left'&&newDirection[0]=='down'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
@@ -104,14 +104,14 @@ const setDirection=()=>{
     newDirection.shift();
   }
  
-  else if(direction==='right'&&newDirection[0]=='up'&&left%30===0&&top%30===0)
+  else if(direction==='right'&&newDirection[0]=='up'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
     addDirections(left,top);
 
   }
-  else if(direction==='right'&&newDirection[0]==='down'&&left%30===0&&top%30===0)
+  else if(direction==='right'&&newDirection[0]==='down'&&left%20===0&&top%20===0)
   {
     direction=newDirection[0];
     newDirection.shift();
@@ -128,7 +128,7 @@ const setDirection=()=>{
   }
 }
 const createBlocks=()=>{
-  for (let i=0;i<441;i++){
+  for (let i=0;i<961;i++){
     const block= document.createElement('div');
     block.classList.add('block');
     box.appendChild(block);
@@ -136,8 +136,8 @@ const createBlocks=()=>{
 }
 const createFood=()=>{
   food.classList.add('food');
-  positionLeft=Math.floor((Math.floor(Math.random()*600)+1)/30)*30;
-  positionTop=Math.floor((Math.floor(Math.random()*600)+1)/30)*30;
+  positionLeft=Math.floor((Math.floor(Math.random()*600)+1)/20)*20;
+  positionTop=Math.floor((Math.floor(Math.random()*600)+1)/20)*20;
   food.style.left=positionLeft.toString()+'px';
   food.style.top=positionTop.toString()+'px';
   box.appendChild(food);
@@ -167,30 +167,30 @@ const autoMove=(element,direction)=>{
   {
      if(left>=600)
       element.style.left='0px';
-    
+     
     else 
-      element.style.left=(left+1.5).toString()+'px';
+      element.style.left=(left+20).toString()+'px';
   }
   else if(direction==='left')
   {
     if(left<=0)
       element.style.left='600px';
     else
-      element.style.left=(left-1.5).toString()+'px';
+      element.style.left=(left-20).toString()+'px';
   }
   else if(direction==='up')
   {
     if(top<=0)
       element.style.top='600px';
     else 
-      element.style.top=(top-1.5).toString()+'px';
+      element.style.top=(top-20).toString()+'px';
   }
   else if(direction==='down')
   {
     if(top>=600)
       element.style.top='0px';
     else
-      element.style.top=(top+1.5).toString()+'px';
+      element.style.top=(top+20).toString()+'px';
   }}
   const changeBlockDirection=(element)=>{
     const left=Number((element.style.left).slice(0,-2));
@@ -203,12 +203,12 @@ const autoMove=(element,direction)=>{
     
   }
     const setTailPosition=(left,top,tailLeft,tailTop)=>{
-      if(left%30===0&&top%30===0&&snakeBody.length===0)
+      if(left%20===0&&top%20===0&&snakeBody.length===0)
       {
         positionTailTop=top;
         positionTailLeft=left;
       }
-      else if(snakeBody.length!==0&&tailLeft%30===0&&tailTop%30===0)
+      else if(snakeBody.length!==0&&tailLeft%20===0&&tailTop%20===0)
       {
         positionTailLeft=tailLeft;
         positionTailTop=tailTop
@@ -233,7 +233,7 @@ const autoMove=(element,direction)=>{
       const topBlock2=Number((anotherBlock.style.top).slice(0,-2));
       if(leftBlock===leftBlock2&&topBlock===topBlock2&&block!==anotherBlock)
       {
-        alert('lozer');
+        alert('game over');
       }
         
       }
@@ -249,7 +249,6 @@ End Main functions
 /*
 Start Code Execution
 */
-
 createBlocks();
 createFood();
 document.body.addEventListener('keydown',(e)=>{
@@ -298,7 +297,7 @@ setInterval(()=>{
   }
    setTailPosition(left,top,tailLeft,tailTop);
 
-},1);
+},60);
 /*
 End Code Execution
 */
