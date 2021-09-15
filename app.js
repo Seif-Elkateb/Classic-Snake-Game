@@ -4,30 +4,49 @@ Start Global Variables
 const snake= document.querySelector('.snake');
 const box= document.querySelector('.box');
 const food =document.createElement('div');
-const snakeBody=[snake];
+const snakeBody=[];
 let positionLeft;
 let positionTop;
+let positionTailLeft=0;
+let positionTailTop=0;
 let direction='right';
 let newDirection=[];
 /*
 End Global Variables
 */
-
 /* 
 Start Helper Function
+*/
+const addDirections=(left,top)=>{
+  const obj={direction,left,top};
+  for (let block of snakeBody){
+      block.directions.push(obj);
+     }
+
+}
+
+/*
+End Helper Function
+*/
+/*
+Start Main Functions
 */
 const setDirection=()=>{
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
+ 
   if(direction==='up'&&newDirection[0]=='left'&&left%30===0&&top%30===0)
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
+    
   }
   else if(direction==='up'&&newDirection[0]==='right'&&left%30===0&&top%30===0)
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='up'&&newDirection[0]==='down')
@@ -43,12 +62,14 @@ const setDirection=()=>{
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='down'&&newDirection[0]==='right'&&left%30===0&&top%30===0)
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='down'&&newDirection[0]==='down')
@@ -64,12 +85,14 @@ const setDirection=()=>{
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='left'&&newDirection[0]=='down'&&left%30===0&&top%30===0)
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='left'&&newDirection[0]==='left')
@@ -85,12 +108,14 @@ const setDirection=()=>{
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='right'&&newDirection[0]==='down'&&left%30===0&&top%30===0)
   {
     direction=newDirection[0];
     newDirection.shift();
+    addDirections(left,top);
 
   }
   else if(direction==='right'&&newDirection[0]==='right')
@@ -102,19 +127,11 @@ const setDirection=()=>{
     newDirection.shift();
   }
 }
-/*
-End Helper Function
-*/
-/*
-Start Main Functions
-*/
 const createBlocks=()=>{
   for (let i=0;i<441;i++){
     const block= document.createElement('div');
     block.classList.add('block');
     box.appendChild(block);
-
-
   }
 }
 const createFood=()=>{
@@ -125,6 +142,80 @@ const createFood=()=>{
   food.style.top=positionTop.toString()+'px';
   box.appendChild(food);
 }
+const createBodyBlock=()=>{
+  const block = document.createElement('div');
+  block.classList.add('snake-body');
+  if(snakeBody.length===0){
+  block.direction=direction;
+  block.directions=[];
+  }
+  else if(snakeBody.length!==0){
+    const tailBlock=snakeBody[snakeBody.length-1];
+    block.direction=tailBlock.direction;
+    block.directions=[...tailBlock.directions]
+  }
+
+  block.style.left=positionTailLeft.toString()+'px';
+  block.style.top=positionTailTop.toString()+'px';
+  snakeBody.push(block);
+  box.appendChild(block);
+}
+const autoMove=(element,direction)=>{
+  const left=Number((element.style.left).slice(0,-2));
+  const top=Number((element.style.top).slice(0,-2));
+  if(direction==='right')
+  {
+     if(left>=600)
+      element.style.left='0px';
+    
+    else 
+      element.style.left=(left+1.5).toString()+'px';
+  }
+  else if(direction==='left')
+  {
+    if(left<=0)
+      element.style.left='600px';
+    else
+      element.style.left=(left-1.5).toString()+'px';
+  }
+  else if(direction==='up')
+  {
+    if(top<=0)
+      element.style.top='600px';
+    else 
+      element.style.top=(top-1.5).toString()+'px';
+  }
+  else if(direction==='down')
+  {
+    if(top>=600)
+      element.style.top='0px';
+    else
+      element.style.top=(top+1.5).toString()+'px';
+  }}
+  const changeBlockDirection=(element)=>{
+    const left=Number((element.style.left).slice(0,-2));
+    const top=Number((element.style.top).slice(0,-2));
+    if(element.directions.length!==0&&element.directions[0].left===left&&element.directions[0].top===top)
+    {
+      element.direction=element.directions[0].direction;
+      element.directions.shift();
+    }
+    
+  }
+    const setTailPosition=(left,top,tailLeft,tailTop)=>{
+      if(left%30===0&&top%30===0&&snakeBody.length===0)
+      {
+        positionTailTop=top;
+        positionTailLeft=left;
+      }
+      else if(snakeBody.length!==0&&tailLeft%30===0&&tailTop%30===0)
+      {
+        positionTailLeft=tailLeft;
+        positionTailTop=tailTop
+      }
+  }
+  
+
 
 /*
 End Main functions
@@ -157,40 +248,31 @@ document.body.addEventListener('keydown',(e)=>{
 });
 
 setInterval(()=>{
-  setDirection(direction,newDirection);
-  for (let snake of snakeBody){
   const left=Number((snake.style.left).slice(0,-2));
   const top=Number((snake.style.top).slice(0,-2));
-  if(direction==='right')
+  let tailLeft;
+  let tailTop;
+  if(snakeBody.length!==0)
   {
-     if(left>=600)
-      snake.style.left='0px';
-    
-    else 
-      snake.style.left=(left+1.25).toString()+'px';
+    const block = snakeBody[snakeBody.length-1];
+    tailLeft=Number((block.style.left).slice(0,-2));
+    tailTop=Number((block.style.top).slice(0,-2));
   }
-  else if(direction==='left')
-  {
-    if(left<=0)
-      snake.style.left='600px';
-    else
-      snake.style.left=(left-1.25).toString()+'px';
+  if(left===positionLeft&&top===positionTop){
+    createFood();
+    createBodyBlock();
   }
-  else if(direction==='up')
-  {
-    if(top<=0)
-      snake.style.top='600px';
-    else 
-      snake.style.top=(top-1.25).toString()+'px';
+  setDirection(direction,newDirection);
+  autoMove(snake,direction);
+  
+  for(let block of snakeBody){
+    changeBlockDirection(block);
+    autoMove(block,block.direction);
+
   }
-  else if(direction==='down')
-  {
-    if(top>=600)
-      snake.style.top='0px';
-    else
-      snake.style.top=(top+1.25).toString()+'px';
-  }
-}},1);
+   setTailPosition(left,top,tailLeft,tailTop);
+
+},1);
 /*
 End Code Execution
 */
