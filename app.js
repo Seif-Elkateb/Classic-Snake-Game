@@ -138,7 +138,7 @@ const setDirection=()=>{
   }
 }
 const createBlocks=()=>{
-  for (let i=0;i<961;i++){
+  for (let i=0;i<729;i++){
     const block= document.createElement('div');
     block.classList.add('block');
     box.appendChild(block);
@@ -146,8 +146,8 @@ const createBlocks=()=>{
 }
 const createFood=()=>{
   food.classList.add('food');
-  positionLeft=Math.floor((Math.floor(Math.random()*600)+1)/20)*20;
-  positionTop=Math.floor((Math.floor(Math.random()*600)+1)/20)*20;
+  positionLeft=Math.floor((Math.floor(Math.random()*520)+1)/20)*20;
+  positionTop=Math.floor((Math.floor(Math.random()*520)+1)/20)*20;
   food.style.left=positionLeft.toString()+'px';
   food.style.top=positionTop.toString()+'px';
   box.appendChild(food);
@@ -176,7 +176,7 @@ const autoMove=(element,direction)=>{
   const top=Number((element.style.top).slice(0,-2));
   if(direction==='right')
   {
-     if(left>=600){
+     if(left>=520){
       element.classList.remove('transition');
       element.style.left='0px';
       setTimeout(() => {
@@ -191,7 +191,7 @@ const autoMove=(element,direction)=>{
   {
     if(left<=0){
       element.classList.remove('transition');
-      element.style.left='600px';
+      element.style.left='520px';
       setTimeout(() => {
         element.classList.add('transition')
         
@@ -205,7 +205,7 @@ const autoMove=(element,direction)=>{
   {
     if(top<=0){
       element.classList.remove('transition');
-      element.style.top='600px';
+      element.style.top='520px';
       setTimeout(() => {
         element.classList.add('transition')
         
@@ -215,7 +215,7 @@ const autoMove=(element,direction)=>{
   }
   else if(direction==='down')
   {
-    if(top>=600){
+    if(top>=520){
       element.classList.remove('transition');
       element.style.top='0px';
       setTimeout(() => {
