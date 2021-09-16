@@ -84,7 +84,7 @@ h2{
 .snake{
   width:20px;
   height:20px;
-  background-color: rgb(15, 41, 30);
+  background-color: rgb(4, 10, 7);
   border:3px solid rgba(4, 14, 7, 0.63);;
   position: absolute;
   z-index: 100;
@@ -98,14 +98,12 @@ h2{
    background-color: rgb(18, 54, 29);
    border:3px solid rgba(4, 14, 7, 0.63);;
    border-radius:50%;
-   -webkit-border-radius:50%;
-   -moz-border-radius:50%;
-   -ms-border-radius:50%;
-   -o-border-radius:50%;
+
 }
 .transition{
   transition-duration: 150ms;
 }
+
 
 
 .block:nth-of-type(even) {
@@ -117,8 +115,7 @@ h2{
 .food{
   width:15px;
   height:15px;
-  background-color: rgb(218, 62, 35);
+  background-color: rgb(151, 7, 2);
   border-radius: 50%;
   position:absolute;
-
 }

@@ -6,6 +6,10 @@ const box= document.querySelector('.box');
 const food =document.createElement('div');
 const newGameButton=document.querySelector('#new-game-btn');
 const newGameBox=document.querySelector('.new-game');
+const buttonSound=new Audio('./audio/button.wav');
+const goodMoveSound= new Audio('./audio/goodmove.wav');
+const gameOverSound= new Audio('./audio/lose.wav');
+let score=0;
 let snakeBody=[];
 let positionLeft;
 let positionTop;
@@ -25,6 +29,10 @@ const addDirections=(left,top)=>{
       block.directions.push(obj);
      }
 
+}
+const hideFood=()=>{
+  positionLeft=100000;
+  positionTop=100000;
 }
 
 /*
@@ -225,7 +233,7 @@ const autoMove=(element,direction)=>{
       element.direction=element.directions[0].direction;
       element.directions.shift();
     }
-    
+      
   }
     const setTailPosition=(left,top,tailLeft,tailTop)=>{
       if(left%20===0&&top%20===0&&snakeBody.length===0)
@@ -247,8 +255,11 @@ const autoMove=(element,direction)=>{
       const topBlock=Number((block.style.top).slice(0,-2));
       if(left===leftBlock&&top===topBlock)
       {
-        alert('game over');
+        gameOverSound.play();
+        alert(`game over\n your score is ${score}`);
         box.style.display='none';
+        score=0;
+        hideFood();
         newGameBox.style.display='flex';
         for (let block of snakeBody){
           block.remove();
@@ -270,9 +281,11 @@ Start Code Execution
 createBlocks();
 createFood();
 newGameButton.addEventListener('click',()=>{
+  buttonSound.play();
   newGameBox.style.display='none';
   box.style.display='grid';
   box.style.cursor='none';
+  createFood();
   
 })
 document.body.addEventListener('keydown',(e)=>{
@@ -308,6 +321,10 @@ setInterval(()=>{
     tailTop=Number((block.style.top).slice(0,-2));
   }
   if(left===positionLeft&&top===positionTop){
+    score+=5;
+    goodMoveSound.pause();
+    goodMoveSound.currentTime=0;
+    goodMoveSound.play();
     createFood();
     createBodyBlock();
   }
