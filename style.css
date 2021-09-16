@@ -10,6 +10,12 @@ body{
   user-select: none;
   font-family: 'Volkhov', serif;
 }
+@media (max-width:1050px){
+  body{
+    background-image: none;
+    background-color: #80a204;
+  }
+}
 .box{
   background-color: rgb(54, 109, 54);
   width:564px;
