@@ -1,5 +1,6 @@
 /*
 Start Global Variables
+
 */
 const snake= document.querySelector('.snake');
 const box= document.querySelector('.box');
@@ -171,58 +172,68 @@ const createBodyBlock=()=>{
   snakeBody.push(block);
   box.appendChild(block);
 }
-const autoMove=(element,direction)=>{
-  const left=Number((element.style.left).slice(0,-2));
-  const top=Number((element.style.top).slice(0,-2));
-  if(direction==='right')
-  {
-     if(left>=520){
-      element.classList.remove('transition');
-      element.style.left='0px';
-      setTimeout(() => {
-        element.classList.add('transition')
-        
-      }, 60);     }
-     
-    else 
-      element.style.left=(left+20).toString()+'px';
+const checkBoundries=(element,left,top)=>{
+  if(left<0){
+    element.classList.remove('transition');
+    element.style.left='520px';
+    setTimeout(() => {
+      element.classList.add('transition')
+      
+    }, 60);
+    return true;
   }
-  else if(direction==='left')
-  {
-    if(left<=0){
-      element.classList.remove('transition');
-      element.style.left='520px';
-      setTimeout(() => {
-        element.classList.add('transition')
-        
-      }, 60);
-
-    }
-    else
-      element.style.left=(left-20).toString()+'px';
+  else if (left>520){
+    element.classList.remove('transition');
+    element.style.left='0px';
+    setTimeout(() => {
+      element.classList.add('transition')
+      
+    }, 60); 
+    return true;
   }
-  else if(direction==='up')
-  {
-    if(top<=0){
+  else if(top<0){
       element.classList.remove('transition');
       element.style.top='520px';
       setTimeout(() => {
         element.classList.add('transition')
         
-      }, 60);    }
-    else 
+      }, 60);   
+      return true;
+    }
+   else if(top>520){
+        element.classList.remove('transition');
+        element.style.top='0px';
+        setTimeout(() => {
+          element.classList.add('transition')
+          
+        }, 60); 
+        return true;
+      }
+    return false;
+}
+
+const autoMove=(element,direction)=>{
+  const left=Number((element.style.left).slice(0,-2));
+  const top=Number((element.style.top).slice(0,-2));
+  if(direction==='right')
+  {
+    if(!checkBoundries(element,left,top)) 
+      element.style.left=(left+20).toString()+'px';
+  }
+  else if(direction==='left')
+  {
+
+    if(!checkBoundries(element,left,top)) 
+      element.style.left=(left-20).toString()+'px';
+  }
+  else if(direction==='up')
+  {
+    if(!checkBoundries(element,left,top)) 
       element.style.top=(top-20).toString()+'px';
   }
   else if(direction==='down')
   {
-    if(top>=520){
-      element.classList.remove('transition');
-      element.style.top='0px';
-      setTimeout(() => {
-        element.classList.add('transition')
-        
-      }, 60);    }
-    else
+    if(!checkBoundries(element,left,top)) 
       element.style.top=(top+20).toString()+'px';
   }}
   const changeBlockDirection=(element)=>{
