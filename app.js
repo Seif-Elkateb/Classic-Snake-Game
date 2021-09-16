@@ -4,7 +4,9 @@ Start Global Variables
 const snake= document.querySelector('.snake');
 const box= document.querySelector('.box');
 const food =document.createElement('div');
-const snakeBody=[];
+const newGameButton=document.querySelector('#new-game-btn');
+const newGameBox=document.querySelector('.new-game');
+let snakeBody=[];
 let positionLeft;
 let positionTop;
 let positionTailLeft=0;
@@ -166,7 +168,7 @@ const autoMove=(element,direction)=>{
   const top=Number((element.style.top).slice(0,-2));
   if(direction==='right')
   {
-     if(left>=620){
+     if(left>=600){
       element.classList.remove('transition');
       element.style.left='0px';
       setTimeout(() => {
@@ -179,7 +181,7 @@ const autoMove=(element,direction)=>{
   }
   else if(direction==='left')
   {
-    if(left<=-20){
+    if(left<=0){
       element.classList.remove('transition');
       element.style.left='600px';
       setTimeout(() => {
@@ -193,7 +195,7 @@ const autoMove=(element,direction)=>{
   }
   else if(direction==='up')
   {
-    if(top<=-20){
+    if(top<=0){
       element.classList.remove('transition');
       element.style.top='600px';
       setTimeout(() => {
@@ -205,7 +207,7 @@ const autoMove=(element,direction)=>{
   }
   else if(direction==='down')
   {
-    if(top>=620){
+    if(top>=600){
       element.classList.remove('transition');
       element.style.top='0px';
       setTimeout(() => {
@@ -246,19 +248,12 @@ const autoMove=(element,direction)=>{
       if(left===leftBlock&&top===topBlock)
       {
         alert('game over');
-      }
-    }
-    for (block of snakeBody){
-      for (anotherBlock of snakeBody){
-      const leftBlock=Number((block.style.left).slice(0,-2));
-      const topBlock=Number((block.style.top).slice(0,-2));
-      const leftBlock2=Number((anotherBlock.style.left).slice(0,-2));
-      const topBlock2=Number((anotherBlock.style.top).slice(0,-2));
-      if(leftBlock===leftBlock2&&topBlock===topBlock2&&block!==anotherBlock)
-      {
-        alert('game over');
-      }
-        
+        box.style.display='none';
+        newGameBox.style.display='flex';
+        for (let block of snakeBody){
+          block.remove();
+        }
+        snakeBody=[];
       }
     }
   }
@@ -274,6 +269,12 @@ Start Code Execution
 */
 createBlocks();
 createFood();
+newGameButton.addEventListener('click',()=>{
+  newGameBox.style.display='none';
+  box.style.display='grid';
+  box.style.cursor='none';
+  
+})
 document.body.addEventListener('keydown',(e)=>{
   if(e.key==='ArrowRight')
   {
