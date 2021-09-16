@@ -93,7 +93,8 @@ h2{
   border:3px solid rgba(4, 14, 7, 0.63);;
   position: absolute;
   z-index: 100;
-  border-radius:10px;
+  transition-duration: 10ms;
+
 }
 .snake-body{
    width:20px;
@@ -102,12 +103,11 @@ h2{
    z-index: 99;
    background-color: rgb(18, 54, 29);
    border:3px solid rgba(4, 14, 7, 0.63);;
-   border-radius:50%;
+   transition-duration: 10ms;
+
 
 }
-.transition{
-  transition-duration: 150ms;
-}
+
 
 
 

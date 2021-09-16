@@ -156,7 +156,6 @@ const createFood=()=>{
 const createBodyBlock=()=>{
   const block = document.createElement('div');
   block.classList.add('snake-body');
-  block.classList.add('transition');
   if(snakeBody.length===0){
   block.direction=direction;
   block.directions=[];
@@ -174,39 +173,20 @@ const createBodyBlock=()=>{
 }
 const checkBoundries=(element,left,top)=>{
   if(left<0){
-    element.classList.remove('transition');
     element.style.left='520px';
-    setTimeout(() => {
-      element.classList.add('transition')
-      
-    }, 60);
     return true;
   }
   else if (left>520){
-    element.classList.remove('transition');
     element.style.left='0px';
-    setTimeout(() => {
-      element.classList.add('transition')
-      
-    }, 60); 
     return true;
   }
+  
   else if(top<0){
-      element.classList.remove('transition');
       element.style.top='520px';
-      setTimeout(() => {
-        element.classList.add('transition')
-        
-      }, 60);   
       return true;
     }
    else if(top>520){
-        element.classList.remove('transition');
         element.style.top='0px';
-        setTimeout(() => {
-          element.classList.add('transition')
-          
-        }, 60); 
         return true;
       }
     return false;
